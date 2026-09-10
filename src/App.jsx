@@ -1,9 +1,10 @@
+import Welcome from "./pages/Welcome";
+
 function App() {
   return (
     <div className="app">
       <main className="mobile-container">
-        <h1>Audify</h1>
-        <p>Music lives here.</p>
+        <Welcome />
       </main>
     </div>
   );
