@@ -1,28 +1,13 @@
-function Home() {
-    const categories = ["All", "Pop", "Rock", "Chill", "Hip Hop"];
+import { useState } from "react";
+import PlaylistCard from "../components/PlaylistCard";
+import SongCard from "../components/SongCard";
 
-    const playlists = [
-        {
-            title: "Chill Vibes",
-            type: "Playlist",
-            image: "🌅",
-        },
-        {
-            title: "Focus Mode",
-            type: "Playlist",
-            image: "🌿",
-        },
-        {
-            title: "Workout",
-            type: "Playlist",
-            image: "🎧",
-        },
-        {
-            title: "Late Night",
-            type: "Playlist",
-            image: "🌙",
-        },
-    ];
+import { playlists, songs } from "../data/songs";
+
+function Home() {
+
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const categories = ["All", "Pop", "Rock", "Chill", "Hip Hop"];
 
     return (
         <div className="home">
@@ -48,14 +33,20 @@ function Home() {
 
             {/* Categories */}
             <div className="categories">
-                {categories.map((category, index) => (
+
+                {categories.map((category) => (
+
                     <button
                         key={category}
-                        className={`category ${index === 0 ? "active" : ""}`}
+                        className={`category ${selectedCategory === category ? "active" : ""
+                            }`}
+                        onClick={() => setSelectedCategory(category)}
                     >
                         {category}
                     </button>
+
                 ))}
+
             </div>
 
 
@@ -100,16 +91,12 @@ function Home() {
                 <div className="playlist-scroll">
 
                     {playlists.map((playlist) => (
-                        <div className="playlist-card" key={playlist.title}>
-
-                            <div className="playlist-image">
-                                {playlist.image}
-                            </div>
-
-                            <h3>{playlist.title}</h3>
-                            <p>{playlist.type}</p>
-
-                        </div>
+                        <PlaylistCard
+                            key={playlist.id}
+                            title={playlist.title}
+                            type={playlist.type}
+                            image={playlist.image}
+                        />
                     ))}
 
                 </div>
@@ -125,26 +112,12 @@ function Home() {
                     <button>See All</button>
                 </div>
 
-                <div className="recent-song">
-
-                    <div className="song-image">
-                        🎵
-                    </div>
-
-                    <div className="song-info">
-                        <h3>Blinding Lights</h3>
-                        <p>The Weeknd</p>
-                    </div>
-
-                    <button className="song-play">
-                        ▶
-                    </button>
-
-                    <button className="more-button">
-                        ⋯
-                    </button>
-
-                </div>
+                <SongCard
+                    title={songs[0].title}
+                    artist={songs[0].artist}
+                    image={songs[0].image}
+                    onPlay={() => console.log("Play:", songs[0].title)}
+                />
 
             </section>
 
